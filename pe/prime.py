@@ -1,12 +1,7 @@
-'''
-A set of basic functions for finding or
-testing prime numbers.
-'''
+"""Basic functions for finding or testing prime numbers."""
 
 def isPrime(n):
-    '''
-    Basic prime test by searching for divisors
-    '''
+    ''' Basic prime test by searching for divisors '''
     for x in range(2, int(n**0.5)+1):
         if n % x == 0:
             return False

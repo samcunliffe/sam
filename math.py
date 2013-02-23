@@ -1,3 +1,4 @@
+"""Usefull math functions that aren't in 'math'."""
 
 def is_even(n):
   """Test integer n for even parity"""
