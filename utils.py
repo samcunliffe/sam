@@ -6,4 +6,4 @@ def mkdir_p(directory):
   except OSError as exc: # Python >2.5
     if exc.errno == errno.EEXIST:
       pass
-  else: raise
+  #else: raise
