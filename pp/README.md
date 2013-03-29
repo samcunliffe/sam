@@ -1,5 +1,5 @@
-MyPythonPackage/pp
-==================
+sam/pp
+======
 
 Particle physics related functions. In here there are several sub packages:
 
