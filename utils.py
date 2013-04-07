@@ -1,4 +1,9 @@
-"""Miscelaneous"""
+"""Miscellaneous useful functions"""
+
+
+def lensort(list_of_objects_with_length):
+  """Sorts list objects by len"""
+  return sort(list_of_objects_with_length, key=len)
 
 
 def mkdir_p(directory):
@@ -10,7 +15,3 @@ def mkdir_p(directory):
     if exc.errno == errno.EEXIST:
       pass
   #else: raise
-
-def lensort(list_of_strings):
-  """Sorts a list of strings by length"""
-  return sorted(list_of_strings, key=len))
