@@ -1,5 +1,5 @@
 
-from sam.pp.q2bin import q2bin
+from sam.pp.analysis.q2bin import q2bin
 
 bin0 = q2bin(0.1, 2)
 bin1 = q2bin(2, 4.3)
