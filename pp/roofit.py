@@ -5,6 +5,7 @@ def make_rooplot(list_of_plotable, x_variable, path_to_save_plot):
   p = x_variable.frame()
   for plotable_object in list_of_plotable:
     plotable_object.plotOn(p)
-  c=r.TCanvas()
+  from ROOT import TCanvas
+  c=TCanvas()
   p.Draw()
   c.SaveAs(path_to_save_plot)
