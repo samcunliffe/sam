@@ -10,3 +10,10 @@ def get_tree_from_file(file_name, tree_name="DecayTree",
   print "Got the tree called:",t.GetName()
   print " containing:",t.GetEntries(),"entries"
   return (f,t) # have to return file to 'hold' tree
+
+def branch_exists(branch_name, tree):
+  """Checks to see if a branch is in the tree"""
+  if tree.GetBranch(branch_name):
+    return True
+  else:
+    return False
