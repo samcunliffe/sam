@@ -2,4 +2,6 @@
 *.pyc
 
 # subversion
-.svn/*
+.svn
+*/.svn
+*/*/.svn
