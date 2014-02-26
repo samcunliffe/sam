@@ -1,29 +1,35 @@
 """Root specific functions"""
 __authors__ = ["Sam Cunliffe"]
 
+def check_root_version():
+    """Checks that the ROOT version is recent and decent"""
+    from ROOT import gROOT
+    print "utils.check_root_version: ROOT version:", gROOT.GetVersion()
+    ## could easily flag up untrusted versions with complex checking in here
+    return (gROOT.GetVersionInt() > 53408)
 
 def get_tree_from_file(file_name, tree_name = "DecayTree",
                        dir_name = "", file_mode = "READ"):
-  """Gets TTree out of TFile"""
-  print file_name
-  import ROOT as r
-  f=r.TFile(file_name, file_mode)
-  t=r.TTree()
-  f.GetObject(dir_name + tree_name, t)
-  # TODO: add some checks of the tree
-  print "Got the tree called:",t.GetName()
-  print " containing:",t.GetEntries(),"entries"
-  return (f,t) # have to return file to 'hold' tree
+    """Gets TTree out of TFile"""
+    print file_name
+    import ROOT as r
+    f=r.TFile(file_name, file_mode)
+    t=r.TTree()
+    f.GetObject(dir_name + tree_name, t)
+    # TODO: add some checks of the tree
+    print "Got the tree called:",t.GetName()
+    print " containing:",t.GetEntries(),"entries"
+    return (f,t) # have to return file to 'hold' tree
 
 
 
 
 def branch_exists(branch_name, tree):
-  """Checks to see if a branch is in the tree"""
-  if tree.GetBranch(branch_name):
-    return True
-  else:
-    return False
+    """Checks to see if a branch is in the tree"""
+    if tree.GetBranch(branch_name):
+        return True
+    else:
+        return False
 
 
 
@@ -33,17 +39,17 @@ def save_writable(list_of_writable_objects, path_to_save):
     # check file name
     if not path_to_save.endswith(".root"):
         path_to_save += ".root"
-    
+
     # new root file
     from ROOT import TFile
     f = TFile(path_to_save, "RECREATE")
     f.cd()
-    
+
     # write all
     for writable_object in list_of_writable_objects:
         writable_object.Write()
-    f.Close()
-    return
+        f.Close()
+        return
 
 
 
@@ -62,7 +68,7 @@ def save_plot(plot, path_to_save, drawopt = "", xaxisname = None):
     # draw and save in given file format
     plot.Draw(drawopt)
     c.SaveAs(path_to_save)
-    
+
     # save as dot-root file
     path_for_rootfile = path_to_save.replace(".pdf", ".root")
     path_for_rootfile = path_for_rootfile.replace(".png", ".root")
@@ -80,8 +86,8 @@ def make_tgraph(xvals, yvals, yerrs = None, xerrs = None):
     # if we don't have errors provided then set them to zero
     if yerrs == None:
         yerrs = [0.0]*len(xvals)
-    if xerrs == None:
-        xerrs = [0.0]*len(xvals)
+        if xerrs == None:
+            xerrs = [0.0]*len(xvals)
 
     # loop over and fill graph
     for i, (x,y, xerr, yerr) in enumerate(zip(xvals, yvals, xerrs, yerrs)):
