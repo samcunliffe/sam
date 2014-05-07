@@ -53,7 +53,8 @@ def save_writable(list_of_writable_objects, path_to_save):
 
 
 
-def save_plot(plot, path_to_save, drawopt = "", xaxisname = None):
+def save_plot(plot, path_to_save, drawopt = "", xaxisname = None, 
+              save_as_root = True):
     """Draws a plot to a TCanvas and saves as a root file"""
 
     # new canvas
@@ -73,7 +74,7 @@ def save_plot(plot, path_to_save, drawopt = "", xaxisname = None):
     path_for_rootfile = path_to_save.replace(".pdf", ".root")
     path_for_rootfile = path_for_rootfile.replace(".png", ".root")
     path_for_rootfile = path_for_rootfile.replace(".eps", ".root")
-    save_writable([plot], path_for_rootfile)
+    if save_as_root: save_writable([plot], path_for_rootfile)
     return
 
 
@@ -140,3 +141,18 @@ def fit_exponential(graph, verbose = False):
     m = f.GetParameter(1) # gradient
     return (c, m)
 
+
+
+def get_plots(filename):
+    """opens a root file and returns a list of all plots"""
+    plots = [] # will be the output
+    plot_types = ['TH1D', 'TH2D', 'TH1F', 'TH2F', 'TGraph', 'TGraphErrors', 
+                  'TGraphAsymErrors', 'RooPlot'] # can add to this
+    from ROOT import TFile
+    f = TFile(filename, "READ")
+    file_contents = f.GetListOfKeys()
+    for thing in file_contents:
+        if thing.GetClassName() in plot_types: 
+            # then the TObject is a plot
+            plots += [thing.ReadObj()]
+    return (f,plots)
