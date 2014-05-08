@@ -98,6 +98,24 @@ def make_tgraph(xvals, yvals, yerrs = None, xerrs = None):
     return graph
 
 
+def fit_gaussian(graph, verbose = False):
+    """Fits a straight line to a graph, using the simple ROOT Fit interface"""
+
+    # function
+    from ROOT import TF1
+    f = TF1("fit_" + graph.GetName(), "gaus")
+    if verbose:
+        print "will fit with verbose \n\n"
+        opt = "V"
+    else: 
+        opt = ""
+
+    # do fit
+    graph.Fit(f, opt)
+
+    m = f.GetParameter(1) # mean
+    s = f.GetParameter(2) # sigma
+    return (m, s)
 
 
 def fit_straight_line(graph, verbose = False):
