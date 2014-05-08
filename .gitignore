@@ -5,3 +5,7 @@
 .svn
 */.svn
 */*/.svn
+
+# plots, pictures, whatnot
+*.pdf
+*.png
