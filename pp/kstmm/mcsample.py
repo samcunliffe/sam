@@ -1,7 +1,7 @@
 
-from utils.stats import counted           # number with sqrt counting error
+from uncertainties import ufloat # number with uncertainty
+from utils.stats import counted  # number with sqrt counting error
 from utils.paths import MC12STRIPPINGOUT
-from kstmm.lumidata import FULLDATALUMI, FD, FS, FLAMBDA, SIGMABBBAR
 
 class MCSample:
     '''Contains all information needed/calculations per MC sample'''
@@ -21,10 +21,15 @@ class MCSample:
   
     def efficiency(self, nsurvive):
         '''Calculate the efficiency to select this background'''
-        return counted(nsurvive)/self.ngenerator
+        print "using the fixed efficency thingy"
+        n, N = nsurvive, self.ngenerator
+        central = n/N
+        error = sqrt(n*(N-n)/N*N*N)
+        return ufloat(central, error)
   
     def expected_yield(self, nsurvive):
         '''Calculate the expected yield of events in 3/fb'''
+        from kstmm.lumidata import FULLDATALUMI, FD, FS, FLAMBDA, SIGMABBBAR
   
         # work out which fraction
         if self.codename.count("Bs"):
@@ -36,11 +41,9 @@ class MCSample:
         else:
             print "ERROR"
             return real("-1 +/- 0")
-    
+
+        # calculate expected events
         nBHadrons = FULLDATALUMI*2*hadrF*SIGMABBBAR
-        #print self.codename
-        #print hadrF
-        #print nBHadrons
         return self.br*nBHadrons*counted(nsurvive)*self.decprodcut/self.ngenerator
   
 
