@@ -1,6 +1,12 @@
 """Root specific functions"""
 __authors__ = ["Sam Cunliffe"]
 
+def turn_off_popup_plots():
+    """Turns pyROOT to batch mode (no popup plots)"""
+    from ROOT import gROOT
+    gROOT.SetBatch(True)
+    return
+
 def check_root_version():
     """Checks that the ROOT version is recent and decent"""
     from ROOT import gROOT
