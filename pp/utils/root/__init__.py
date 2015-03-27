@@ -120,8 +120,10 @@ def fit_gaussian(graph, verbose = False):
     graph.Fit(f, opt)
 
     m = f.GetParameter(1) # mean
+    dm = f.GetParError(1) # uncertainty on mean
     s = f.GetParameter(2) # sigma
-    return (m, s)
+    ds = f.GetParError(2) # sigma
+    return (m, dm, s, ds)
 
 
 def fit_straight_line(graph, verbose = False):
