@@ -1,6 +1,6 @@
 
 from uncertainties import ufloat # number with uncertainty
-from utils.stats import counted  # number with sqrt counting error
+from sam.stats import poisson_counted  # number with sqrt counting error
 from utils.paths import MC12STRIPPINGOUT
 
 class MCSample:
@@ -9,7 +9,7 @@ class MCSample:
                  extracuts="(1 > 0)"):
         self.codename = codename
         self.title = title
-        self.ngenerator = counted(ngenerator)
+        self.ngenerator = poisson_counted(ngenerator)
         self.decprodcut = e_decprodcut
         self.br = br
         self.rootcolour = colour
@@ -17,7 +17,7 @@ class MCSample:
 
     def file_name(self):
         '''Generates the filename to open'''
-        return MC12STRIPPINGOUT + "tree_mc2012_" + self.codename + "_newpid_mccor.root" 
+        return MC12STRIPPINGOUT + "tree_mc2012_" + self.codename + "_newIso_newpid_mccor.root" 
   
     def efficiency(self, nsurvive):
         '''Calculate the efficiency to select this background'''
@@ -44,6 +44,6 @@ class MCSample:
 
         # calculate expected events
         nBHadrons = FULLDATALUMI*2*hadrF*SIGMABBBAR
-        return self.br*nBHadrons*counted(nsurvive)*self.decprodcut/self.ngenerator
+        return self.br*nBHadrons*poisson_counted(nsurvive)*self.decprodcut/self.ngenerator
   
 
