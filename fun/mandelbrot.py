@@ -3,19 +3,26 @@ import numpy as np
 from pylab import show, imshow, savefig
 from timeit import default_timer as timer
 
-def mandel(x, y, max_iters):
-    """
+
+def modsq(z):
+    return z.real*z.real + z.imag*z.imag
+
+
+def mandel(real, imag, max_iters):
+    """ Mandelbrot set
+
     Given the real and imaginary parts of a complex number,
     determine if it is a candidate for membership in the Mandelbrot
-    set given a fixed number of iterations.
+    set given a maximum number of iterations.
     """
-    c = complex(x, y)
-    z = 0.0j
+    c, z = complex(real, imag), 0.0j
     for i in range(max_iters):
         z = z*z + c
-        if (z.real*z.real + z.imag*z.imag) >= 4:
+        if modsq(z) >= 4:
             return i
+
     return max_iters
+
 
 def create_fractal(min_x, max_x, min_y, max_y, image, iters):
     height = image.shape[0]
@@ -31,16 +38,22 @@ def create_fractal(min_x, max_x, min_y, max_y, image, iters):
             color = mandel(real, imag, iters)
             image[y, x] = color
 
+    return
+
+
 def main():
-    image = np.zeros((1024, 1536), dtype = np.uint8)
+    """Make the famous Mandelbrot plot"""
+    image = np.zeros((1024, 1536), dtype=np.uint8)
     start = timer()
-    create_fractal(-2.0, 1.0, -1.0, 1.0, image, 20) 
+    create_fractal(-2.0, 1.0, -1.0, 1.0, image, iters=20)
     dt = timer() - start
 
     print "Mandelbrot created in %f s" % dt
     imshow(image)
     f = show()
     f.savefig("hello.pdf")
+
+    return
 
 
 if __name__ == "__main__":
