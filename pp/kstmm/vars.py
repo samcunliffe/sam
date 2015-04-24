@@ -59,14 +59,15 @@ class Variable:
 
 
 
-angular_variables = [
-    Variable("qsq", "q^{2}", (100, 0.0, 19), "GeV^{2}/c^{4}"),
-    Variable("psq", "p^{2}", (100, 0.4, 1.25), "GeV^{2}/c^{4}"),
-    Variable("mkpi", "m_{K#pi}", (50, 633, 1200), "MeV/c^{2}", "Kstar_M"),
-    Variable("mmumu", "m_{#mu#mu}", (100, 0.0, 4359), "MeV/c^{2}", "Jpsi_M"),
-    Variable("ctk", "cos(#theta_{k})", (100, -1.0, 1.0), ""),
-    Variable("ctl", "cos(#theta_{l})", (100, -1.0, 1.0), ""),
-    Variable("phi", "#phi", (50, -3.14, 3.14), "rad", "phi")
-]
-
+mkpi   = Variable("mkpi", "m_{K#pi}", (50, 633, 1200), "MeV/c^{2}", "Kstar_M")
+ctk    = Variable("ctk", "cos#theta_{K}", (100, -1.0, 1.0), "")
 mkpimm = Variable("mkpimm", "m_{K#pi#mu#mu}", (50, 5180, 5780), "MeV/c^{2}", "B0_MM")
+qsq    = Variable("qsq", "q^{2}", (100, 0.0, 19), "GeV^{2}/c^{4}")
+
+angular_variables = [
+    Variable("psq", "p^{2}", (100, 0.4, 1.25), "GeV^{2}/c^{4}"),
+    Variable("mmumu", "m_{#mu#mu}", (100, 0.0, 4359), "MeV/c^{2}", "Jpsi_M"),
+    Variable("ctl", "cos#theta_{l}", (100, -1.0, 1.0), ""),
+    Variable("phi", "#phi", (50, -3.14, 3.14), "rad", "phi"),
+    qsq,ctk,mkpi
+]
