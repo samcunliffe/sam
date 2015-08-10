@@ -28,6 +28,15 @@ def get_tree_from_file(file_name, tree_name = "DecayTree",
     return (f,t) # have to return file to 'hold' tree
 
 
+def get_from_file(filename, tobjectname):
+    """Gets a TObject from a TFile"""
+    from ROOT import TFile
+    fi = TFile(filename, "READ")
+    to = fi.Get(tobjectname)
+    return (fi, to)
+
+
+
 
 
 def branch_exists(branch_name, tree):

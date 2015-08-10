@@ -44,6 +44,20 @@ def make_rooplot(list_of_plotable, x_variable, path_to_save_plot, nbins = 50,
     return
 
 
+def get_rds_from_file(file_name, rds_name = "transversity", file_mode = "READ"):
+    """Gets RooDataSet out of TFile"""
+    print file_name
+    import ROOT as r
+    f=r.TFile(file_name, file_mode)
+    rds=r.RooDataSet()
+    f.GetObject(rds_name, rds)
+    # TODO: add some checks of the tree
+    print "Got the RooDataSet called:",rds.GetName()
+    print " containing:",rds.numEntries(),"entries"
+    print " now call print method "
+    rds.Print()
+    return (f,rds) # have to return file to 'hold' tree
+
 def make_component_rooplot(pdf, list_of_components, dataset, x_variable,
                            path_to_save_plot, nbins = 50):
   """Makes a RooPlot of a pdf and its componets (after a fit?)"""
