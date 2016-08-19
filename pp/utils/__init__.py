@@ -9,7 +9,7 @@ def turn_off_popup_plots():
     """Makes gROOT not spit out plot windows for every draw command"""
     from ROOT import gROOT
     gROOT.SetBatch(True)
-    print "have set batch mode so you won't see popup plots"
+    print("have set batch mode so you won't see popup plots")
 
 
 
@@ -34,11 +34,11 @@ def ssum(list_of_strings):
 
 def run_cmd(cmd, test = False) :
     """wrapper for os.system to run bash command"""
-    print cmd
+    print(cmd)
     if not test :
         result = os.system(cmd) 
         if result < 0 :
-            print "failed", result
+            print("failed", result)
             sys.exit(result)
 
 
