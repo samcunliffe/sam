@@ -11,10 +11,10 @@ def make_rooplot(list_of_plotable, x_variable, path_to_save_plot, nbins = 50,
 
     if list_of_draw_options:
         if len(list_of_plotable) != len(list_of_draw_options):
-            print "error: length mismatch with provided draw options"
-            print "len(list_of_plotable):", len(list_of_plotable)
-            print "len(list_of_draw_options):", len(list_of_draw_options)
-            print "will draw without options"
+            print("error: length mismatch with provided draw options")
+            print("len(list_of_plotable):", len(list_of_plotable))
+            print("len(list_of_draw_options):", len(list_of_draw_options))
+            print("will draw without options")
 
 
     # plot things on
@@ -46,17 +46,17 @@ def make_rooplot(list_of_plotable, x_variable, path_to_save_plot, nbins = 50,
 
 def get_rds_from_file(file_name, rds_name = "transversity", file_mode = "READ"):
     """Gets RooDataSet out of TFile"""
-    print file_name
+    print(file_name)
     import ROOT as r
     f=r.TFile(file_name, file_mode)
     rds=r.RooDataSet()
     f.GetObject(rds_name, rds)
     # TODO: add some checks of the tree
-    print "Got the RooDataSet called:",rds.GetName()
-    print " containing:",rds.numEntries(),"entries"
-    print " now call print method "
+    print("Got the RooDataSet called:",rds.GetName())
+    print(" containing:",rds.numEntries(),"entries")
+    print(" now call print method ")
     rds.Print()
-    return (f,rds) # have to return file to 'hold' tree
+    return (f, rds) # have to return file to 'hold' tree
 
 def make_component_rooplot(pdf, list_of_components, dataset, x_variable,
                            path_to_save_plot, nbins = 50):
@@ -76,7 +76,7 @@ def make_component_rooplot(pdf, list_of_components, dataset, x_variable,
   pdf.plotOn(the_plot)
 
   for component_pdf_name in list_of_components:
-    print component_pdf_name, colour_code
+    print(component_pdf_name, colour_code)
     pdf.plotOn(the_plot, cmpt(component_pdf_name), dash, colr(colour_code))
     colour_code += 2
 
@@ -109,10 +109,10 @@ def make_hists_rooplot(list_of_roodatahists, x_variable, path_to_save_plot,
     # sanity check
     if key_and_colors:
         if len(list_of_roodatahists) != len(key_and_colors):
-            print "error: length mismatch with provided draw options"
-            print "len(list_of_roodatahists):", len(list_of_roodatahists)
-            print "len(key_and_colors):", len(key_and_colors)
-            print "will draw without key/legend"
+            print("error: length mismatch with provided draw options")
+            print("len(list_of_roodatahists):", len(list_of_roodatahists))
+            print("len(key_and_colors):", len(key_and_colors))
+            print("will draw without key/legend")
 
     from ROOT import RooFit as rf
     from ROOT import TLegend
@@ -169,7 +169,7 @@ def make_parameters_text_file(fit_result, path_to_save_text_file):
       path_to_save_text_file += "pars.txt"
     else:
       path_to_save_text_file += "/pars.txt"
-  print "saving parameters to:", path_to_save_text_file
+  print("saving parameters to:", path_to_save_text_file)
 
   # create output file
   from ROOT import std
@@ -191,8 +191,8 @@ def get_wspace_from_file(file_name, wspace_name, dir_name = "",
   w=r.RooWorkspace()
   f.GetObject(dir_name + wspace_name, w)
   # TODO: add some checks 
-  print "Got the workspace called:", w.GetName()
-  print "Print method:"
+  print("Got the workspace called:", w.GetName())
+  print("Print method:")
   w.Print()
   return (f,w) # have to return file to 'hold' tree
 
@@ -209,7 +209,7 @@ def make_roodataset(python_list_of_vars, file_name,
 
     # open the files and get the trees
     from utils.root import get_tree_from_file
-    (f,t) = get_tree_from_file(file_name, tree_name)
+    (f, t) = get_tree_from_file(file_name, tree_name)
 
     # get the variables into the stupid roofit format
     ras = RooArgSet()
@@ -218,18 +218,18 @@ def make_roodataset(python_list_of_vars, file_name,
     ras.Print()
 
     # make a RooDataSet from both trees
-    print "making the RooArgSet... yes this takes a long time because python"\
+    print("making the RooArgSet... yes this takes a long time because python"\
         + " is slower than C++ \nperhaps you could use the time to reflect"\
-        + "on how much you hate coding C++ and how beautiful python is"
+        + "on how much you hate coding C++ and how beautiful python is")
     ds = RooDataSet("ds", "data set", t, ras)
-    print "made the RooDataSet"
+    print("made the RooDataSet")
 
     # save it
     from ROOT import TFile
     fds = TFile(path_to_save, "RECREATE")
     fds.cd()
     ds.Write()
-    print "saved the RooDataSet"
+    print("saved the RooDataSet")
 
     return ds
 
@@ -245,8 +245,4 @@ def add_histogram_to_canvas(canvas, variable, dataset, stupid_root_colour):
     root_histogram.SetMarkerColor(stupid_root_colour)
     root_histogram.SetLineColor(stupid_root_colour)
     root_histogram.Draw("same")
-
-
-def python_list_to_roodataset(xvar, xvals, xerrs, yvals, yerrs):
-    """Convert python lists (i.e. from matplotlib plots) to a roodataset"""
 

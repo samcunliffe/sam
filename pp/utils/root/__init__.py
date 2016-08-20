@@ -10,21 +10,21 @@ def turn_off_popup_plots():
 def check_root_version():
     """Checks that the ROOT version is recent and decent"""
     from ROOT import gROOT
-    print "utils.check_root_version: ROOT version:", gROOT.GetVersion()
+    print("utils.check_root_version: ROOT version: %s" % gROOT.GetVersion())
     ## could easily flag up untrusted versions with complex checking in here
     return (gROOT.GetVersionInt() > 53408)
 
 def get_tree_from_file(file_name, tree_name = "DecayTree",
                        dir_name = "", file_mode = "READ"):
     """Gets TTree out of TFile"""
-    print file_name
+    print(file_name)
     import ROOT as r
     f=r.TFile(file_name, file_mode)
     t=r.TTree()
     f.GetObject(dir_name + tree_name, t)
     # TODO: add some checks of the tree
-    print "Got the tree called:",t.GetName()
-    print " containing:",t.GetEntries(),"entries"
+    print("Got the tree called: %s" % t.GetName())
+    print(" containing: %i entries" % t.GetEntries())
     return (f,t) # have to return file to 'hold' tree
 
 
@@ -120,7 +120,7 @@ def fit_gaussian(graph, verbose = False):
     from ROOT import TF1
     f = TF1("fit_" + graph.GetName(), "gaus")
     if verbose:
-        print "will fit with verbose \n\n"
+        print("will fit with verbose \n\n")
         opt = "V"
     else: 
         opt = ""
@@ -142,7 +142,7 @@ def fit_straight_line(graph, verbose = False):
     from ROOT import TF1
     f = TF1("fit_" + graph.GetName(), "pol1")
     if verbose:
-        print "will fit with verbose \n\n"
+        print("will fit with verbose \n\n")
         opt = "V"
     else: 
         opt = ""
@@ -163,7 +163,7 @@ def fit_exponential(graph, verbose = False):
     from ROOT import TF1
     f = TF1("fit_" + graph.GetName(), "expo")
     if verbose:
-        print "will fit with verbose \n\n"
+        print("will fit with verbose \n\n")
         opt = "V"
     else: 
         opt = ""
