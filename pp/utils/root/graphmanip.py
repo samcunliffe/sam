@@ -31,7 +31,7 @@ def remove_zero_points(tgraph, asym=True):
 
     # now fill new TGraph
     for newpoint, oldpoint in enumerate(nonzeros):
-        print newpoint, oldpoint
+        #print newpoint, oldpoint
         x, y = PassByRef(0), PassByRef(0)
         tgraph.GetPoint(oldpoint, x, y)
         newtgraph.SetPoint(newpoint, x.real, y.real)
@@ -68,10 +68,10 @@ def remove_zero_points_broken_but_should_work_better(tgraph):
     yvals  = remove_all_zeroes(yvals)
     eyvals = remove_all_zeroes(eyvals)
     newsize = len(xvals)
-    print xvals
-    print exvals
-    print yvals
-    print eyvals
+    print(xvals)
+    print(exvals)
+    print(yvals)
+    print(eyvals)
 
     # numpy array doesn't work for some godunknown reason
     newgraph = TGraphErrors(newsize)
