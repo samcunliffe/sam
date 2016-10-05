@@ -1,18 +1,26 @@
 """Root specific functions"""
 __authors__ = ["Sam Cunliffe"]
 
+
+
 def turn_off_popup_plots():
     """Turns pyROOT to batch mode (no popup plots)"""
     from ROOT import gROOT
     gROOT.SetBatch(True)
     return
 
+
+
+
 def check_root_version():
     """Checks that the ROOT version is recent and decent"""
     from ROOT import gROOT
-    print("utils.check_root_version: ROOT version:", gROOT.GetVersion())
+    print("utils.check_root_version: ROOT version: %s" % gROOT.GetVersion())
     ## could easily flag up untrusted versions with complex checking in here
     return (gROOT.GetVersionInt() > 53408)
+
+
+
 
 def get_tree_from_file(file_name, tree_name = "DecayTree",
                        dir_name = "", file_mode = "READ"):
@@ -22,10 +30,29 @@ def get_tree_from_file(file_name, tree_name = "DecayTree",
     f=r.TFile(file_name, file_mode)
     t=r.TTree()
     f.GetObject(dir_name + tree_name, t)
-    # TODO: add some checks of the tree
-    print("Got the tree called:",t.GetName())
-    print(" containing:",t.GetEntries(),"entries")
+    print("Got the tree called: %s" % t.GetName())
+    print(" containing: %i entries" % t.GetEntries())
     return (f,t) # have to return file to 'hold' tree
+
+
+
+
+def get_trees_from_file(file_name, list_of_tree_names,
+                       dir_name = "", file_mode = "READ"):
+    """Gets TTree out of TFile"""
+    print(file_name)
+    import ROOT as r
+    f=r.TFile(file_name, file_mode)
+    t = []
+    for name in list_of_tree_names:
+        tr=r.TTree()
+        f.GetObject(dir_name + name, tr)
+        print("Got the tree called: %s" % tr.GetName())
+        print(" containing: %i entries" % tr.GetEntries())
+        t.append(tr)
+    return (f,t)
+
+
 
 
 def get_from_file(filename, tobjectname):

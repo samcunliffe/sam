@@ -56,7 +56,7 @@ def get_rds_from_file(file_name, rds_name = "transversity", file_mode = "READ"):
     print(" containing:",rds.numEntries(),"entries")
     print(" now call print method ")
     rds.Print()
-    return (f,rds) # have to return file to 'hold' tree
+    return (f, rds) # have to return file to 'hold' tree
 
 def make_component_rooplot(pdf, list_of_components, dataset, x_variable,
                            path_to_save_plot, nbins = 50):
@@ -253,8 +253,4 @@ def add_histogram_to_canvas(canvas, variable, dataset, stupid_root_colour):
     root_histogram.SetMarkerColor(stupid_root_colour)
     root_histogram.SetLineColor(stupid_root_colour)
     root_histogram.Draw("same")
-
-
-def python_list_to_roodataset(xvar, xvals, xerrs, yvals, yerrs):
-    """Convert python lists (i.e. from matplotlib plots) to a roodataset"""
 
