@@ -141,7 +141,7 @@ def make_tgraph(xvals, yvals, yerrs = None, xerrs = None):
 
 
 def fit_gaussian(graph, verbose = False):
-    """Fits a straight line to a graph, using the simple ROOT Fit interface"""
+    """Fits a gaussian to a graph, using the simple ROOT Fit interface"""
 
     # function
     from ROOT import TF1
@@ -161,6 +161,36 @@ def fit_gaussian(graph, verbose = False):
     ds = f.GetParError(2) # sigma
     return (m, dm, s, ds)
 
+
+def fit_double_gaussian(graph, verbose = False):
+    """Fits a double gaussian to graph, using the simple ROOT Fit interface"""
+
+    # function
+    from ROOT import TF1
+    first  = "[0]*exp(-0.5*((x-[1])/[2])**2)"
+    second = "[3]*exp(-0.5*((x-[1])/[4])**2)"
+    double = first + '+' + second
+    f = TF1("fit_" + graph.GetName(), double)
+    f.SetParNames('n1', 'mean', 'sigma1', 'n2', 'sigma2')
+    f.SetParameters(0.7*graph.GetEntries(), 0, 0.006, .3*graph.GetEntries(), 0.004) 
+    if verbose:
+        print("will fit with verbose \n\n")
+        opt = "V"
+    else: 
+        opt = ""
+
+    # do fit
+    graph.Fit(f, opt)
+
+    #f12 = f.GetParameter(0) # fraction f12
+    #df12 = f.GetParError(0) #
+    m = f.GetParameter(1) # mean
+    dm = f.GetParError(1) # uncertainty on mean
+    s1 = f.GetParameter(2) # sigma_1
+    ds1 = f.GetParError(2) # 
+    s2 = f.GetParameter(4) # sigma_2
+    ds2 = f.GetParError(4) #
+    return (m, dm, s1, ds1, s2, ds2)
 
 def fit_straight_line(graph, verbose = False):
     """Fits a straight line to a graph, using the simple ROOT Fit interface"""
