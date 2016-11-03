@@ -21,6 +21,16 @@ def check_root_version():
 
 
 
+def get_tree(tree_name, file, dir_name=''):
+    import ROOT as r
+    t=r.TTree()
+    file.GetObject(dir_name + tree_name, t)
+    print("Got the tree called: %s" % t.GetName())
+    print(" containing: %i entries" % t.GetEntries())
+    return (file,t) # have to return file to 'hold' tree
+
+
+
 
 def get_tree_from_file(file_name, tree_name = "DecayTree",
                        dir_name = "", file_mode = "READ"):
