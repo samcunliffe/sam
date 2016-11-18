@@ -1,7 +1,15 @@
 from math import sqrt
+from uncertainties import ufloat
 
 def counted_ratio_error(n, N):
     return sqrt(n*(N-n) /(N*N*N))
+
+
+
+def counted_ratio(n, N):
+    return ufloat(n/N, counted_ratio_error(n,N))
+
+
 
 def efficiency_divide(hn, hN):
     """Make an efficiency ratio from a subsample n selected from N)"""
@@ -22,6 +30,3 @@ def efficiency_divide(hn, hN):
     hR.SetMinimum(0)
     hR.SetMaximum(1.01) # aesthetic purposes
     return hR
-        
-
-
