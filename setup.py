@@ -1,3 +1,4 @@
+from distutils.core import setup
 setup(
     name='sam',
     version='1.0',
