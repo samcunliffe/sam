@@ -1,6 +1,6 @@
 from setuptools import setup
 
-dependencies=[line for line in open('requirements.txt')]
+requirements = [line for line in open('requirements.txt')]
 
 setup(
     name='sam',
@@ -8,5 +8,5 @@ setup(
     description="Personal modules for Sam's use",
     author="Sam Cunliffe",
     url="https://github.com/samcunliffe/sam",
-    install_requires = ['uncertainties'],
+    install_requires = requirements,
 )
