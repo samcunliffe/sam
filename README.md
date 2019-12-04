@@ -1,4 +1,13 @@
 sam
 ===
 
-My own python code package to organise all of the various functions that I like to have at my fingertips.
+My own private python code package to organise all of the functions that I like to have at my fingertips.
+I you're not me, you probably don't want this.
+
+# Dependancies
+
+    uncertainties>=3.1
+
+# Installation
+
+    pip3 install git+https://github.com/samcunliffe/sam
