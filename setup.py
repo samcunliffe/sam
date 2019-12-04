@@ -10,8 +10,8 @@ setup(
     url="https://github.com/samcunliffe/sam",
     packages=['sam', 'sam.pp'],
     package_dir={
-        'sam': 'sam/sam'
+        'sam': 'sam/sam',
         'sam.pp': 'sam/sam/pp'
-                },
+    },
     install_requires = requirements,
 )
