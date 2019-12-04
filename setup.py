@@ -8,5 +8,7 @@ setup(
     description="Personal modules for Sam's use",
     author="Sam Cunliffe",
     url="https://github.com/samcunliffe/sam",
+    packages=['sam'],
+    package_dir={'sam': 'sam'},
     install_requires = requirements,
 )
